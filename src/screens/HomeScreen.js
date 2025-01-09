@@ -1,18 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
-import {useTodoContext} from '../context/TodoContext'; // Access the context
+// HomeScreen.js
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { useTodoContext } from '../context/TodoContext';  // Access the context
 import TodoItem from '../components/TodoItem';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   // Access state and functions from the context
-  const {todos, completedTodos, deleteTodo, completeTodo} = useTodoContext();
+  const { todos, completedTodos, deleteTodo, completeTodo } = useTodoContext();
 
   // State to hold the current date
   const [currentDate, setCurrentDate] = useState('');
@@ -50,7 +44,7 @@ const HomeScreen = ({navigation}) => {
       {/* Todo list */}
       <FlatList
         data={todos}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TodoItem
             todo={item}
             onDelete={deleteTodo}
@@ -68,19 +62,18 @@ const HomeScreen = ({navigation}) => {
       {/* Completed list */}
       <FlatList
         data={completedTodos}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TodoItem todo={item} onDelete={deleteTodo} isCompleted={true} />
         )}
         keyExtractor={item => item.id}
-        ListHeaderComponent={
-          <Text style={styles.sectionHeader}>Completed</Text>
-        }
+        ListHeaderComponent={<Text style={styles.sectionHeader}>Completed</Text>}
       />
 
       {/* Add New Task Button */}
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => navigation.navigate('AddTask')}>
+        onPress={() => navigation.navigate('AddTask')}
+      >
         <Text style={styles.addButtonText}>Add New Task</Text>
       </TouchableOpacity>
     </View>
@@ -134,8 +127,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   divider: {
-    height: 5,
-    backgroundColor: '#d3d3d3', // Light grey divider color
+    height: Platform.OS === 'ios' ? 2 : 1,
+    backgroundColor: '#ccc', // Light grey divider color for better visibility
     marginVertical: 10,
     marginHorizontal: 16,
   },
