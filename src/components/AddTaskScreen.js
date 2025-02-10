@@ -12,31 +12,31 @@ import {
 } from 'react-native';
 import { useTodoContext } from '../context/TodoContext';
 import { RadioButton } from 'react-native-paper';  
-import DateTimePickerModal from 'react-native-modal-datetime-picker'; // Import the modal picker
-import LottieView from 'lottie-react-native'; // Import LottieView
-import Icon from 'react-native-vector-icons/SimpleLineIcons'; // Importing MaterialIcons
-import Icon2 from 'react-native-vector-icons/Foundation'; // Importing MaterialIcons'
-import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons'; // Importing MaterialIcons
+import DateTimePickerModal from 'react-native-modal-datetime-picker'; 
+import LottieView from 'lottie-react-native'; 
+import Icon from 'react-native-vector-icons/SimpleLineIcons'; 
+import Icon2 from 'react-native-vector-icons/Foundation'; 
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons'; 
 
 const AddTaskScreen = ({ navigation }) => {
   const { addTodo } = useTodoContext();
 
   const [taskTitle, setTaskTitle] = useState('');
   const [priority, setPriority] = useState('');
-  const [category, setCategory] = useState('Notes'); // Default category is 'Notes'
+  const [category, setCategory] = useState('Notes'); 
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [notes, setNotes] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);  
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   
-  // Modal state for custom alert
+  
   const [isModalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSave = () => {
     if (taskTitle.trim() === '' || priority.trim() === '' || category.trim() === '' || date.trim() === '' || time.trim() === '') {
-      // Show error modal if validation fails
+      
       setErrorMessage('Please fill in all fields');
       setModalVisible(true);
     } else {
@@ -62,14 +62,14 @@ const AddTaskScreen = ({ navigation }) => {
 
   const handleDateSelect = (date) => {
     setDate(formatDate(date));
-    setDatePickerVisibility(false); // Hide the date picker after selection
+    setDatePickerVisibility(false); 
   };
 
   const handleTimeSelect = (time) => {
     const hours = time.getHours();
     const minutes = time.getMinutes();
     setTime(`${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`);
-    setTimePickerVisibility(false); // Hide the time picker after selection
+    setTimePickerVisibility(false); 
   };
 
   return (
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
   },
-  // Modal Styles
+  
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
