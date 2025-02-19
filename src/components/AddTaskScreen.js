@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,33 +10,37 @@ import {
   Keyboard,
   Modal,
 } from 'react-native';
-import { useTodoContext } from '../context/TodoContext';
-import { RadioButton } from 'react-native-paper';  
-import DateTimePickerModal from 'react-native-modal-datetime-picker'; 
-import LottieView from 'lottie-react-native'; 
-import Icon from 'react-native-vector-icons/SimpleLineIcons'; 
-import Icon2 from 'react-native-vector-icons/Foundation'; 
-import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import {useTodoContext} from '../context/TodoContext';
+import {RadioButton} from 'react-native-paper';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import LottieView from 'lottie-react-native';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon2 from 'react-native-vector-icons/Foundation';
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const AddTaskScreen = ({ navigation }) => {
-  const { addTodo } = useTodoContext();
+const AddTaskScreen = ({navigation}) => {
+  const {addTodo} = useTodoContext();
 
   const [taskTitle, setTaskTitle] = useState('');
   const [priority, setPriority] = useState('');
-  const [category, setCategory] = useState('Notes'); 
+  const [category, setCategory] = useState('Notes');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [notes, setNotes] = useState('');
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);  
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  
-  
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSave = () => {
-    if (taskTitle.trim() === '' || priority.trim() === '' || category.trim() === '' || date.trim() === '' || time.trim() === '') {
-      
+    if (
+      taskTitle.trim() === '' ||
+      priority.trim() === '' ||
+      category.trim() === '' ||
+      date.trim() === '' ||
+      time.trim() === ''
+    ) {
       setErrorMessage('Please fill in all fields');
       setModalVisible(true);
     } else {
@@ -52,7 +56,7 @@ const AddTaskScreen = ({ navigation }) => {
     }
   };
 
-  const formatDate = (selectedDate) => {
+  const formatDate = selectedDate => {
     const dateObj = new Date(selectedDate);
     const day = String(dateObj.getDate()).padStart(2, '0');
     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -60,16 +64,18 @@ const AddTaskScreen = ({ navigation }) => {
     return `${day}-${month}-${year}`;
   };
 
-  const handleDateSelect = (date) => {
+  const handleDateSelect = date => {
     setDate(formatDate(date));
-    setDatePickerVisibility(false); 
+    setDatePickerVisibility(false);
   };
 
-  const handleTimeSelect = (time) => {
+  const handleTimeSelect = time => {
     const hours = time.getHours();
     const minutes = time.getMinutes();
-    setTime(`${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`);
-    setTimePickerVisibility(false); 
+    setTime(
+      `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`,
+    );
+    setTimePickerVisibility(false);
   };
 
   return (
@@ -87,18 +93,45 @@ const AddTaskScreen = ({ navigation }) => {
             onChangeText={setTaskTitle}
           />
         </View>
-        
+
         <View style={styles.categoryContainer}>
           <Text style={styles.label}>Category</Text>
           <View style={styles.categoryIcons}>
-            <TouchableOpacity onPress={() => setCategory('Notes')} style={[styles.iconCircle, { borderColor: category === 'Notes' ? '#4CAF50' : '#bbb' }]}>
-              <Icon2 name="clipboard-notes" size={30} color={category === 'Notes' ? '#4CAF50' : '#bbb'} />
+            <TouchableOpacity
+              onPress={() => setCategory('Notes')}
+              style={[
+                styles.iconCircle,
+                {borderColor: category === 'Notes' ? '#4CAF50' : '#bbb'},
+              ]}>
+              <Icon2
+                name="clipboard-notes"
+                size={30}
+                color={category === 'Notes' ? '#4CAF50' : '#bbb'}
+              />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCategory('Goals')} style={[styles.iconCircle, { borderColor: category === 'Goals' ? '#FFC107' : '#bbb' }]}>
-              <Icon name="trophy" size={30} color={category === 'Goals' ? '#FFC107' : '#bbb'} />     
+            <TouchableOpacity
+              onPress={() => setCategory('Goals')}
+              style={[
+                styles.iconCircle,
+                {borderColor: category === 'Goals' ? '#FFC107' : '#bbb'},
+              ]}>
+              <Icon
+                name="trophy"
+                size={30}
+                color={category === 'Goals' ? '#FFC107' : '#bbb'}
+              />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCategory('Reminder')} style={[styles.iconCircle, { borderColor: category === 'Reminder' ? '#FF5722' : '#bbb' }]}>
-              <Icon3 name="calendar" size={30} color={category === 'Reminder' ? '#FF5722' : '#bbb'} />
+            <TouchableOpacity
+              onPress={() => setCategory('Reminder')}
+              style={[
+                styles.iconCircle,
+                {borderColor: category === 'Reminder' ? '#FF5722' : '#bbb'},
+              ]}>
+              <Icon3
+                name="calendar"
+                size={30}
+                color={category === 'Reminder' ? '#FF5722' : '#bbb'}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -107,42 +140,63 @@ const AddTaskScreen = ({ navigation }) => {
           <Text style={styles.label}>Priority</Text>
           <View style={styles.radioGroup}>
             <View style={styles.radioButtonContainer}>
-              <RadioButton
-                value="Low"
-                status={priority === 'Low' ? 'checked' : 'unchecked'}
-                onPress={() => setPriority('Low')}
-                color="#4CAF50" 
-              />
+              <TouchableOpacity
+                style={[
+                  styles.radioCircle,
+                  {borderColor: priority === 'Low' ? '#4CAF50' : '#bbb'},
+                ]}
+                onPress={() => setPriority('Low')}>
+                <RadioButton
+                  value="Low"
+                  status={priority === 'Low' ? 'checked' : 'unchecked'}
+                  onPress={() => setPriority('Low')}
+                  color="#4CAF50"
+                />
+              </TouchableOpacity>
               <Text style={styles.radioLabel}>Low</Text>
             </View>
             <View style={styles.radioButtonContainer}>
-              <RadioButton
-                value="Moderate"
-                status={priority === 'Moderate' ? 'checked' : 'unchecked'}
-                onPress={() => setPriority('Moderate')}
-                color="#FFC107" 
-              />
+              <TouchableOpacity
+                style={[
+                  styles.radioCircle,
+                  {borderColor: priority === 'Moderate' ? '#FFC107' : '#bbb'},
+                ]}
+                onPress={() => setPriority('Moderate')}>
+                <RadioButton
+                  value="Moderate"
+                  status={priority === 'Moderate' ? 'checked' : 'unchecked'}
+                  onPress={() => setPriority('Moderate')}
+                  color="#FFC107"
+                />
+              </TouchableOpacity>
               <Text style={styles.radioLabel}>Moderate</Text>
             </View>
             <View style={styles.radioButtonContainer}>
-              <RadioButton
-                value="High"
-                status={priority === 'High' ? 'checked' : 'unchecked'}
-                onPress={() => setPriority('High')}
-                color="#FF5722" 
-              />
+              <TouchableOpacity
+                style={[
+                  styles.radioCircle,
+                  {borderColor: priority === 'High' ? '#FF5722' : '#bbb'},
+                ]}
+                onPress={() => setPriority('High')}>
+                <RadioButton
+                  value="High"
+                  status={priority === 'High' ? 'checked' : 'unchecked'}
+                  onPress={() => setPriority('High')}
+                  color="#FF5722"
+                />
+              </TouchableOpacity>
               <Text style={styles.radioLabel}>High</Text>
             </View>
           </View>
         </View>
-        
+
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
             <Text style={styles.label}>Date</Text>
             <TouchableOpacity
-              onPress={() => setDatePickerVisibility(true)} 
+              onPress={() => setDatePickerVisibility(true)}
               style={[styles.input, styles.dateInput]}>
-              <Text style={[styles.dateText, { color: date ? '#fff' : '#bbb' }]}>
+              <Text style={[styles.dateText, {color: date ? '#fff' : '#bbb'}]}>
                 {date ? date : 'Select Date'}
               </Text>
             </TouchableOpacity>
@@ -152,7 +206,7 @@ const AddTaskScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => setTimePickerVisibility(true)}
               style={[styles.input, styles.dateInput]}>
-              <Text style={[styles.dateText, { color: time ? '#fff' : '#bbb' }]}>
+              <Text style={[styles.dateText, {color: time ? '#fff' : '#bbb'}]}>
                 {time ? time : 'Select Time'}
               </Text>
             </TouchableOpacity>
@@ -175,7 +229,7 @@ const AddTaskScreen = ({ navigation }) => {
           <Text style={styles.saveButtonText}>Save</Text>
         </TouchableOpacity>
 
-        {/* Date Picker Modal */}
+        {}
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
@@ -184,7 +238,7 @@ const AddTaskScreen = ({ navigation }) => {
           onCancel={() => setDatePickerVisibility(false)}
         />
 
-        {/* Time Picker Modal */}
+        {}
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"
@@ -193,20 +247,19 @@ const AddTaskScreen = ({ navigation }) => {
           onCancel={() => setTimePickerVisibility(false)}
         />
 
-        {/* Custom Modal for Validation Errors */}
+        {}
         <Modal
           visible={isModalVisible}
           animationType="fade"
           transparent={true}
-          onRequestClose={() => setModalVisible(false)}
-        >
+          onRequestClose={() => setModalVisible(false)}>
           <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
             <View style={styles.modalOverlay} />
           </TouchableWithoutFeedback>
           <View style={styles.modalContainer}>
-            {/* Lottie Animation */}
+            {}
             <LottieView
-              source={require('../../assets/animations/warn.json')} 
+              source={require('../../assets/animations/warn.json')}
               autoPlay
               loop
               style={styles.lottieAnimation}
@@ -214,8 +267,7 @@ const AddTaskScreen = ({ navigation }) => {
             <Text style={styles.modalText}>{errorMessage}</Text>
             <TouchableOpacity
               style={styles.modalButton}
-              onPress={() => setModalVisible(false)}
-            >
+              onPress={() => setModalVisible(false)}>
               <Text style={styles.modalButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -273,7 +325,7 @@ const styles = StyleSheet.create({
   saveButton: {
     backgroundColor: 'white',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 50,
     alignItems: 'center',
     marginTop: 20,
   },
@@ -295,9 +347,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
   },
+  radioCircle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
   dateInput: {
-    justifyContent: 'center', 
-    textAlign: 'center', 
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   dateText: {
     fontSize: 16,
@@ -327,7 +388,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
   },
-  
+
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -350,7 +411,7 @@ const styles = StyleSheet.create({
     zIndex: 9999,
   },
   lottieAnimation: {
-    width: 120,  
+    width: 120,
     height: 120,
     marginBottom: 15,
   },
@@ -363,7 +424,7 @@ const styles = StyleSheet.create({
   modalButton: {
     backgroundColor: 'red',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 50,
     width: '100%',
     alignItems: 'center',
   },

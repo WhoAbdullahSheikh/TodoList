@@ -1,19 +1,18 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Importing MaterialIcons
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TodoItem = ({ todo, onDelete, onComplete, isCompleted }) => {
-  // Determine the color of the category tag based on the priority
   const getCategoryColor = (category) => {
     switch (category.toLowerCase()) {
       case 'high':
-        return '#d11c0f'; // Red
+        return '#d11c0f';
       case 'moderate':
-        return '#ff9800'; // Orange
+        return '#ff9800';
       case 'low':
-        return '#4caf50'; // Green
+        return '#4caf50';
       default:
-        return '#3f51b5'; // Default color if no match
+        return '#3f51b5';
     }
   };
 
@@ -22,7 +21,7 @@ const TodoItem = ({ todo, onDelete, onComplete, isCompleted }) => {
       <View style={styles.detailsContainer}>
         <Text style={[styles.title, isCompleted && styles.completedText]}>{todo.title}</Text>
 
-        {/* Category as a tag with dynamic color based on priority */}
+        {}
         <View style={styles.categoryContainer}>
           <Text style={[styles.category, { backgroundColor: getCategoryColor(todo.category) }]}>
             {todo.category}
@@ -34,7 +33,7 @@ const TodoItem = ({ todo, onDelete, onComplete, isCompleted }) => {
         <Text style={styles.notes}>Notes: <Text style={styles.infoText}>{todo.notes}</Text></Text>
       </View>
 
-      {/* Actions */}
+      {}
       <View style={styles.actions}>
         <TouchableOpacity
           onPress={() => onComplete(todo.id)}
@@ -74,14 +73,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
     borderRadius: 12,
     alignItems: 'flex-start',
-    elevation: 3, // For Android shadow effect
-    shadowColor: '#000', // For iOS shadow effect
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   completedItem: {
-    backgroundColor: '#e0f7fa', // Light blue background for completed tasks
+    backgroundColor: '#e0f7fa',
   },
   detailsContainer: {
     flex: 1,
@@ -90,12 +89,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000', // Task title color should be black
+    color: '#000',
     marginBottom: 5,
   },
   completedText: {
     textDecorationLine: 'line-through',
-    color: '#90a4ae', // Gray color for completed text
+    color: '#90a4ae',
   },
   categoryContainer: {
     marginBottom: 8,
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontWeight: '500',
-    color: '#666', // Use a green color for the info text
+    color: '#666',
   },
   actions: {
     flexDirection: 'column',

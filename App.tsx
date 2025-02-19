@@ -1,10 +1,10 @@
 import React from 'react';
-import 'react-native-gesture-handler'; // Add this at the very top
+import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import AddTaskScreen from './src/components/AddTaskScreen';
-import {TodoProvider} from './src/context/TodoContext'; // Import the context provider
+import {TodoProvider} from './src/context/TodoContext';
 
 const Stack = createStackNavigator();
 

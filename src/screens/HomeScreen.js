@@ -1,17 +1,13 @@
-// HomeScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Platform } from 'react-native';
-import { useTodoContext } from '../context/TodoContext';  // Access the context
+import { useTodoContext } from '../context/TodoContext';
 import TodoItem from '../components/TodoItem';
 
 const HomeScreen = ({ navigation }) => {
-  // Access state and functions from the context
   const { todos, completedTodos, deleteTodo, completeTodo } = useTodoContext();
 
-  // State to hold the current date
   const [currentDate, setCurrentDate] = useState('');
 
-  // Effect to update the date on component mount
   useEffect(() => {
     const updateDate = () => {
       const today = new Date();
@@ -24,13 +20,10 @@ const HomeScreen = ({ navigation }) => {
       setCurrentDate(formattedDate);
     };
 
-    // Call the updateDate function to set the initial date
     updateDate();
 
-    // Optionally, set up an interval to update the date at midnight each day
-    const intervalId = setInterval(updateDate, 86400000); // 86400000 ms = 1 day
+    const intervalId = setInterval(updateDate, 86400000);
 
-    // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 
@@ -41,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.title}>My Todo List</Text>
       </View>
 
-      {/* Todo list */}
+      {}
       <FlatList
         data={todos}
         renderItem={({ item }) => (
@@ -56,10 +49,10 @@ const HomeScreen = ({ navigation }) => {
         ListHeaderComponent={<Text style={styles.sectionHeader}>Todo</Text>}
       />
 
-      {/* Section Divider */}
+      {}
       <View style={styles.divider} />
 
-      {/* Completed list */}
+      {}
       <FlatList
         data={completedTodos}
         renderItem={({ item }) => (
@@ -69,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
         ListHeaderComponent={<Text style={styles.sectionHeader}>Completed</Text>}
       />
 
-      {/* Add New Task Button */}
+      {}
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => navigation.navigate('AddTask')}
@@ -128,7 +121,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: Platform.OS === 'ios' ? 2 : 1,
-    backgroundColor: '#ccc', // Light grey divider color for better visibility
+    backgroundColor: '#ccc',
     marginVertical: 10,
     marginHorizontal: 16,
   },
